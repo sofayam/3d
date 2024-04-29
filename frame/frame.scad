@@ -1,4 +1,4 @@
-framelength = 50;
+framelength = 100;
 
 
 
@@ -30,12 +30,12 @@ difference() {
     cube([depth,height,fulllength], center=false);
     translate([frontdepth,nickdepth+base,0]) cube([backdepth,hide,fulllength], center=false);
     translate([frontdepth+nickfront,base,0]) cube([nick,nickdepth,fulllength], center=false);
+ 
     diagcut1();
     diagcut2();
   
 }
   
-  diagcut2();
 module diagcut1() {
 translate([0,0,height])
 rotate([0,90,0])
@@ -46,23 +46,10 @@ polygon ([[height,height],[height,0],[0,height]]);
 
 
 module diagcut2() {
-translate([0,0,framelength+(depth)])
+translate([0,0,fulllength])
 rotate([0,90,0])
 linear_extrude(depth)
 polygon ([[0,0],[height,height],[0,height]]);
 }
 
 
-module diagcutwrong() {
-translate([0,0,length])
-rotate([0,90,0])
-linear_extrude(depth)
-polygon ([[height,height],[height,0],[0,height]]);
-}  
-module diagcutoold() {
-translate([0,0,framelength]) 
-    
-rotate([0,180,0]) 
-    
-    diagcut1();
-}
