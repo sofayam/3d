@@ -1,8 +1,13 @@
 // TBD parameterize this
 
 // sizes 148 x 210 // Original
-framelength = 210;
+makeframe = 1;
+makecornerslot = 2;
+makecornerglue = 3;
 
+make = makecornerglue;
+
+framelength = 210;
 
 hide = 5;
 nickdepth = 5;
@@ -14,6 +19,8 @@ slit = 10;
 slitwidth = 2;
 
 frontdepth = 6;
+
+cornersize= 25;
 
 backdepth = nickfront+nick+nickback;
 
@@ -68,7 +75,7 @@ linear_extrude(depth)
 polygon ([[0,0],[height,height],[0,height]]);
 }
 
-module corner() {
+module cornerslot() {
    // Needed for wood fibre
    // fudge = 0.6;
    // Normal 
@@ -84,8 +91,19 @@ module corner() {
 }
 }
 
-frame();
-// corner();
+module cornerglue() {
+    
+    difference() { cube([cornersize,cornersize,depth]);
+    translate([5,5,0]) cube([cornersize,cornersize,depth]);
+}
+}
+
+if (make == makeframe)
+   frame();
+else if (make == makecornerglue)
+   cornerglue();
+else if (make == makecornerslot)
+   cornerslot();
 
 
 
