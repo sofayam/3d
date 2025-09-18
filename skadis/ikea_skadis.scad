@@ -16,6 +16,8 @@ tolerance = 0.6; // 3D printer tolerance
 peg_default_width = 5;
 peg_default_thickness = 4.6;
 distance_between_pegs = 40;
+/* MWA changed this */
+peg_fudge = 0.2;
 
 // pegs options
 all_pegs = false; // [false,true] defines whether or not all pegs should be generated
@@ -139,11 +141,12 @@ module skadis_peg(fullfill, retainer) {
         }
         if (retainer == true) {
             hull() {
-                translate([-pt/2, pw, 3*pw]) {
-                    cube(size = [pt, pw, pw]);
+                /* fudge factor -0.3 (loose) -0.2 (just right)  -0.1 (still too tight) */
+                translate([-pt/2, pw, 3*pw]) { 
+                    cube(size = [pt-peg_fudge, pw, pw]);
                 }
                 translate([-pt/2+chamfer(), pw, 3*pw+chamfer()]) {
-                    cube(size = [pt, pw, pw-8*lh]);
+                    cube(size = [pt-peg_fudge, pw, pw-8*lh]);
                 }
             }
         }
